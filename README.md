@@ -6,3 +6,13 @@
  - 弱口令
  - 漏洞
  - 网络连接
+
+需要安装openpyxl包
+
+```
+pip install openpyxl
+```
+或
+```
+python3 -m pip install openpyxl
+```
