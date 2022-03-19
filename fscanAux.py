@@ -130,7 +130,6 @@ def parseNetInfo(dataStr):
     if res:
         patternIP = re.compile(r"\d+\.\d+\.\d+\.\d+")
         for i in res:
-            print(i)
             ip = re.findall(patternIP, i[0])[0]
             resultList.append([ip, i[0].replace("NetInfo:\n", "")])
 
