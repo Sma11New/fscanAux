@@ -124,7 +124,7 @@ def parseVulnInfo(dataList):
 
 # 网络连接
 def parseNetInfo(dataStr):
-    resultList = [["IP", "NetInfo"]]
+    resultList = [["IP", "NetBios"]]
     pattern = re.compile(r"(NetInfo.(\s+.*\n)+)")
     res = re.findall(pattern, dataStr)
     if res:
@@ -133,8 +133,8 @@ def parseNetInfo(dataStr):
             ip = re.findall(patternIP, i[0])[0]
             resultList.append([ip, i[0].replace("NetInfo:\n", "")])
 
-    writeCsvFile("网络连接", resultList)
-    NewPrint.info(f"网络连接：{len(resultList) - 1}")
+    writeCsvFile("NetBios连接", resultList)
+    NewPrint.info(f"NetBios连接：{len(resultList) - 1}")
     # for i in resultList:
     #     print(i)
 
