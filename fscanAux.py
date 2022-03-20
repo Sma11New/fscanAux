@@ -138,7 +138,7 @@ def writeCsvFile(sheetName, dataList):
 
 def getInput():
     if len(sys.argv) != 2:
-        print("\n\tfscan结果整理脚本，输出为.xlsx文件\nUsage: python3 fscanAux.py [fscanResultFile]\n")
+        print("\nfscan结果整理脚本，输出为.xlsx文件\n\nUsage: \n    python3 fscanAux.py [fscanResultFile]\n")
         exit()
     if not os.path.exists(sys.argv[1]):
         NewPrint.error(f"[{sys.argv[1]}] 文件不存在")
