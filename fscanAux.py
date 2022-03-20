@@ -40,8 +40,6 @@ def parsePortInfo(dataList):
 
     writeCsvFile("开放端口", resultList)
     NewPrint.info(f"开放端口：{len(resultList) - 1}")
-    # for i in resultList:
-    #     print(i)
 
 # web资产
 def parseWebInfo(dataList):
@@ -102,8 +100,6 @@ def parsePasswordInfo(dataList):
 
     writeCsvFile("弱口令", resultList)
     NewPrint.info(f"弱口令：{len(resultList) - 1}")
-    # for i in resultList:
-    #     print(i)
 
 # 漏洞信息
 def parseVulnInfo(dataList):
@@ -119,10 +115,8 @@ def parseVulnInfo(dataList):
 
     writeCsvFile("漏洞", resultList)
     NewPrint.info(f"漏洞：{len(resultList) - 1}")
-    # for i in resultList:
-    #     print(i)
 
-# 网络连接
+# NetBios连接
 def parseNetInfo(dataStr):
     resultList = [["IP", "NetBios"]]
     pattern = re.compile(r"(NetInfo.(\s+.*\n)+)")
@@ -135,8 +129,6 @@ def parseNetInfo(dataStr):
 
     writeCsvFile("NetBios连接", resultList)
     NewPrint.info(f"NetBios连接：{len(resultList) - 1}")
-    # for i in resultList:
-    #     print(i)
 
 # 写csv文件
 def writeCsvFile(sheetName, dataList):
