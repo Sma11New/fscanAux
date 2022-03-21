@@ -4,6 +4,7 @@
 # @Github : https://github.com/Sma11New
 
 import os, re, sys, time, openpyxl
+from openpyxl.styles import Font
 
 from colorama import init
 init(autoreset=True)
@@ -130,9 +131,18 @@ def parseNetInfo(dataStr):
 
 # 写csv文件
 def writeCsvFile(sheetName, dataList):
+    # 数据排序
+    title = dataList.pop(0)
+    dataList.sort(key=lambda x: x[0])
+    dataList.insert(0, title)
+    # 写数据
     sheet = resCsvFileObj.create_sheet(sheetName)
     for data in dataList:
         sheet.append(data)
+    # 首行添加格式（字体大小、加粗）
+    for row in sheet[f"A1:{chr(65 + len(dataList[0]) - 1)}1"]:
+        for cell in row:
+            cell.font = Font(size=12, bold=True)
 
 def getInput():
     if len(sys.argv) != 2:
