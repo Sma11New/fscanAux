@@ -81,7 +81,7 @@ def parseWebInfo(dataList):
 # 弱口令信息
 def parsePasswordInfo(dataList):
     resultList = [["Service", "IP", "Port", "UserName", "PassWord"]]
-    pattern = re.compile(r"((ftp|mysql|mssql|smb|rdp|Postgres|ssh|mongodb|oracle):.*)")
+    pattern = re.compile(r"((ftp|mysql|mssql|smb|rdp|Postgres|SSH|mongodb|oracle):.*)")
     for data in dataList:
         res = re.findall(pattern, data)
         if res:
