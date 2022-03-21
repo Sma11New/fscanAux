@@ -77,17 +77,15 @@ def parseWebInfo(dataList):
 
     writeCsvFile("Web资产", resultList)
     NewPrint.info(f"Web资产：{len(resultList) - 1}")
-    # for i in resultList:
-    #     print(i)
 
 # 弱口令信息
 def parsePasswordInfo(dataList):
     resultList = [["Service", "IP", "Port", "UserName", "PassWord"]]
-    pattern = re.compile(r"(^\[\+].(ftp|mysql|mssql|smb|rdp|postgresql|ssh|mongodb|oracle).*)")
+    pattern = re.compile(r"((ftp|mysql|mssql|smb|rdp|Postgres|ssh|mongodb|oracle):.*)")
     for data in dataList:
         res = re.findall(pattern, data)
         if res:
-            tmp = list(res[0][0].replace("[+] ", "").split(":"))
+            tmp = list(res[0][0].split(":"))
             if "//" in tmp[1]:
                 tmp[1] = tmp[1].replace("//", "")
             try:
@@ -103,15 +101,15 @@ def parsePasswordInfo(dataList):
 
 # 漏洞信息
 def parseVulnInfo(dataList):
-    resultList = [["URL", "Vuln"]]
-    pattern = re.compile(r"\[\+] http.*")
-    urlPatt = re.compile(r"http[^\s]+")
+    resultList = [["Address", "Vuln"]]
+    pattern = re.compile(r"(^\[\+].(?!(ftp|mysql|mssql|smb|rdp|Postgresql|SSH|mongodb|oracle|Info)).*$)")
+    addressPatt = re.compile(r"((https?://)?\d+\.\d+\.\d+\.\d+(:\d+)?)")
     for data in dataList:
         res = re.findall(pattern, data)
         if res:
-            url = re.findall(urlPatt, data)[0]
-            vuln = res[0].split(url)[1].strip()
-            resultList.append([url, vuln])
+            address = re.findall(addressPatt, res[0][0])[0][0]
+            vuln = res[0][0].replace(address, "").replace("[+]", "").replace("\t", "").strip()
+            resultList.append([address, vuln])
 
     writeCsvFile("漏洞", resultList)
     NewPrint.info(f"漏洞：{len(resultList) - 1}")
@@ -148,7 +146,7 @@ def getInput():
 if __name__ == "__main__":
     dataList, dataStr = readFile(getInput())
     NewPrint.success("文件已读取，结果处理中……")
-    resCsvFile = f"fscanResult_{time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime())}.xlsx"
+    resCsvFile = f"fscanAuxResult_{time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime())}.xlsx"
     resCsvFileObj = openpyxl.Workbook()
     parsePortInfo(dataList)
     parseWebInfo(dataList)
